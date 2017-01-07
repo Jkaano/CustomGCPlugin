@@ -5,10 +5,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 
 public class CraftingMethods {
-
-	String diamondRec[] = {"aba", "bab", "aba"}; //Recipe Shape
-	char diamondRecChars[] = {'a', 'b'}; //Defines chars used in diamond recipe
-	Material dRecMat[] = {Material.DIRT, Material.SAND}; //Defines the items needed
 	
 	String lootEggRec[] = {"aaa", "aba", "aaa"};
 	char lootEggChars[] = {'a', 'b'};
