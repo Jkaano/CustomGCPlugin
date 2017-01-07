@@ -1,6 +1,5 @@
 package gc.customplugin;
 
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,7 +15,6 @@ public class CustomCrafting extends JavaPlugin{
 	public static final double VERSION = 1.0;
 	
 	public ShapedRecipe lootEggRec;
-	public ShapedRecipe diamondRec;
 	
 	@Override
 	public void onEnable(){
@@ -60,13 +58,10 @@ public class CustomCrafting extends JavaPlugin{
 		CraftingMethods cMeth = new CraftingMethods();
 		LootEgg lEgg = new LootEgg();
 		
-		ItemStack diamond = new ItemStack(Material.DIAMOND);
 		ItemStack lootEgg = lEgg.getLootEgg();
 		
-		ShapedRecipe diamondRecipe = cMeth.createRecipe(diamond, diamondRec, cMeth.diamondRec, cMeth.diamondRecChars, cMeth.dRecMat);
 		ShapedRecipe lootEggRecipe = cMeth.createRecipe(lootEgg, lootEggRec, cMeth.lootEggRec, cMeth.lootEggChars, cMeth.lEggMat);
 		
-		getServer().addRecipe(diamondRecipe);
 		getServer().addRecipe(lootEggRecipe);
 		
 	}
