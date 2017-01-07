@@ -1,0 +1,7 @@
+name: CustomCrafting
+main: gc.mysticgolem.CustomCrafting
+version: 1.0
+commands:
+ customcrafting:
+  description: Lets user know if plugin is installed and the version
+  usage: /<command>
