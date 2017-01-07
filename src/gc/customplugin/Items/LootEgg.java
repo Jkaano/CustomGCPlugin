@@ -1,4 +1,4 @@
-package gc.mysticgolem.Items;
+package gc.customplugin.Items;
 
 import java.util.ArrayList;
 import java.util.List;

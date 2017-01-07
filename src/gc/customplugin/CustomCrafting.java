@@ -1,4 +1,4 @@
-package gc.mysticgolem;
+package gc.customplugin;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -9,7 +9,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import gc.mysticgolem.Items.LootEgg;
+import gc.customplugin.Items.LootEgg;
 
 public class CustomCrafting extends JavaPlugin{
 
