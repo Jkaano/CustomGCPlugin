@@ -9,6 +9,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import gc.customplugin.Items.LootEgg;
+import gc.customplugin.Items.SafariNet;
 
 public class CustomCrafting extends JavaPlugin{
 
@@ -58,12 +59,16 @@ public class CustomCrafting extends JavaPlugin{
 		
 		CraftingMethods cMeth = new CraftingMethods();
 		LootEgg lEgg = new LootEgg();
+		SafariNet sNet = new SafariNet();
 		
 		ItemStack lootEgg = lEgg.getLootEgg();
+		ItemStack safariNet = sNet.getSafariNet();
 		
 		ShapedRecipe lootEggRecipe = cMeth.createRecipe(lootEgg, lootEggRec, cMeth.lootEggRec, cMeth.lootEggChars, cMeth.lEggMat);
+		ShapedRecipe safariNetRecipe = cMeth.createRecipe(safariNet, safariNetRec, cMeth.safariNetRec, cMeth.safariNetChars, cMeth.safariNetMat);
 		
 		getServer().addRecipe(lootEggRecipe);
+		getServer().addRecipe(safariNetRecipe);
 		
 	}
 	

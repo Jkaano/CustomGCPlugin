@@ -10,6 +10,10 @@ public class CraftingMethods {
 	char lootEggChars[] = {'a', 'b'};
 	Material lEggMat[] = {Material.GOLD_INGOT, Material.EGG};
 	
+	String safariNetRec[] = {"aba", "bcb", "aba"};
+	char safariNetChars[] = {'a', 'b', 'c'};
+	Material safariNetMat[] = {Material.STRING, Material.IRON_INGOT, Material.LEASH};
+	
 	public ShapedRecipe createRecipe(ItemStack product, ShapedRecipe recipe, String[] rec, char[] recipeComp, Material[] types){
 		
 		int recipeComplexity = getRecipeComplexity(recipeComp); //# of different items used in recipe
