@@ -15,10 +15,11 @@ public class CustomCrafting extends JavaPlugin{
 	public static final double VERSION = 1.0;
 	
 	public ShapedRecipe lootEggRec;
+	public ShapedRecipe safariNetRec;
 	
 	@Override
 	public void onEnable(){
-		getLogger().info("Custom Crafting by MysticGolem has been enabled");
+		getLogger().info("Custom Plugin by MysticGolem and TheZoq2 has been enabled");
 		
 		registerEvents();
 		registerRecipes();
@@ -27,7 +28,7 @@ public class CustomCrafting extends JavaPlugin{
 	
 	@Override
 	public void onDisable(){
-		getLogger().info("Custom Crafting by MysticGolem has been disabled");
+		getLogger().info("Custom Crafting by MysticGolem and TheZoq2 has been disabled");
 	}
 	
 	
@@ -37,7 +38,7 @@ public class CustomCrafting extends JavaPlugin{
 			
 			Player player = (Player) sender;
 			
-			player.sendMessage("Custom Crafting is enabled and currently in version " + VERSION);
+			player.sendMessage("Custom Plugin is enabled and currently in version " + VERSION);
 			
 			return true;
 			
