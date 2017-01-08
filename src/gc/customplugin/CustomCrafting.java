@@ -33,7 +33,7 @@ public class CustomCrafting extends JavaPlugin{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		
-		if(cmd.getName().equalsIgnoreCase("customcrafting") && sender instanceof Player){
+		if(cmd.getName().equalsIgnoreCase("customplugin") && sender instanceof Player){
 			
 			Player player = (Player) sender;
 			
