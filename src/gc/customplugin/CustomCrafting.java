@@ -53,6 +53,7 @@ public class CustomCrafting extends JavaPlugin{
 		PluginManager pm = getServer().getPluginManager();
 		
 		pm.registerEvents(new LootEgg(), this);
+		pm.registerEvents(new SafariNet(), this);
 	}
 	
 	public void registerRecipes(){
