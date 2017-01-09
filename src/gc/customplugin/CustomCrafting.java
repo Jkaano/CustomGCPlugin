@@ -9,6 +9,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import gc.customplugin.Items.LootEgg;
+import gc.customplugin.events.LayEggEvent;
 
 public class CustomCrafting extends JavaPlugin{
 
@@ -51,6 +52,7 @@ public class CustomCrafting extends JavaPlugin{
 		PluginManager pm = getServer().getPluginManager();
 		
 		pm.registerEvents(new LootEgg(), this);
+		pm.registerEvents(new LayEggEvent(), this);
 	}
 	
 	public void registerRecipes(){
