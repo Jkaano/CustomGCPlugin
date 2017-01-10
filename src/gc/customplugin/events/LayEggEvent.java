@@ -20,6 +20,8 @@ public class LayEggEvent implements Listener{
 		Item item = e.getEntity();
 		ItemStack stack = item.getItemStack();
 		Material mat = stack.getType();
+		int nChick = 0;
+		boolean change = false;
 		
 		if(mat == Material.EGG){
 
@@ -30,10 +32,21 @@ public class LayEggEvent implements Listener{
 			for(int i = 0; i < nearbyEnt.size(); i++){
 				
 				if(nearbyEnt.get(i) instanceof Chicken){
-					stack.setType(Material.DIAMOND_AXE);
+					nChick++;
 				}
 				
 			}
+			
+			if(nChick == 1){
+				change = true;
+			}else{
+				change = false;
+			}
+			
+			if(change){
+				stack.setType(Material.DIAMOND_AXE);
+			}
+			
 		}
 		
 	}
