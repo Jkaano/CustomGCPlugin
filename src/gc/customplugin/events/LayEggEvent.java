@@ -33,6 +33,9 @@ public class LayEggEvent implements Listener{
 				
 				if(nearbyEnt.get(i) instanceof Chicken){
 					nChick++;
+					if(nChick > 1){
+						break;
+					}
 				}
 				
 			}
@@ -51,6 +54,9 @@ public class LayEggEvent implements Listener{
 					
 					if(nearbyEnt.get(i) instanceof Chicken){
 						nChick++;
+						if(nChick > 1){
+							break;
+						}
 					}
 					
 				}
