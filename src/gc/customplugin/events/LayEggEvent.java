@@ -44,7 +44,21 @@ public class LayEggEvent implements Listener{
 			}
 			
 			if(change){
-				stack.setType(Material.DIAMOND_AXE);
+				nearbyEnt.clear();
+				nearbyEnt.addAll(item.getNearbyEntities(0.001, 0.001, 0.001));
+				nChick = 0;
+				for(int i = 0; i < nearbyEnt.size(); i++){
+					
+					if(nearbyEnt.get(i) instanceof Chicken){
+						nChick++;
+					}
+					
+				}
+				
+				if(nChick == 1){
+					stack.setType(Material.DIAMOND_AXE);
+				}
+				
 			}
 			
 		}
