@@ -29,6 +29,7 @@ public class LayEggEvent implements Listener{
 			change = checkNearbyEntities(nearbyEnt, item, 10.0);
 			
 			if(change){
+				change = checkNearbyEntities(nearbyEnt, item, 0.001);
 				
 				if(change){
 					stack.setType(Material.DIAMOND_AXE);
