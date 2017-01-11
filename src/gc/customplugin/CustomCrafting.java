@@ -9,7 +9,11 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import gc.customplugin.Items.LootEgg;
+<<<<<<< HEAD
 import gc.customplugin.Items.SafariNet;
+=======
+import gc.customplugin.events.LayEggEvent;
+>>>>>>> refs/remotes/origin/master
 
 public class CustomCrafting extends JavaPlugin{
 
@@ -53,7 +57,11 @@ public class CustomCrafting extends JavaPlugin{
 		PluginManager pm = getServer().getPluginManager();
 		
 		pm.registerEvents(new LootEgg(), this);
+<<<<<<< HEAD
 		pm.registerEvents(new SafariNet(), this);
+=======
+		pm.registerEvents(new LayEggEvent(), this);
+>>>>>>> refs/remotes/origin/master
 	}
 	
 	public void registerRecipes(){
