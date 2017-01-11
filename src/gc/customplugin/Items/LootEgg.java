@@ -12,6 +12,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -26,6 +27,8 @@ public class LootEgg implements Listener{
 	private Random rand = new Random();
 	private int randNum;
 	private List<ItemStack> droppable = new ArrayList<ItemStack>();
+	private ItemStack isEgg; //For if egg is launched from dispenser
+	private boolean fromDispenser = false;
 	
 	public LootEgg(){
 		
@@ -139,10 +142,17 @@ public class LootEgg implements Listener{
 	public void onEggLaunch(ProjectileLaunchEvent e){
 		
 		Entity egg = e.getEntity();
-		Player player = getThrower();
-		ItemStack item = player.getItemInHand(); 
+		Player player;
+		ItemStack item;
 		ItemMeta meta;
 		List<String> lor;
+		
+		if(!fromDispenser){
+			player = getThrower();
+			item = player.getItemInHand();
+		}else{
+			item = isEgg;
+		}
 		
 		if(item.hasItemMeta()){
 			meta = item.getItemMeta();
@@ -153,6 +163,10 @@ public class LootEgg implements Listener{
 					egg.setGlowing(true);
 				}
 			}
+		}
+		
+		if(fromDispenser){
+			fromDispenser = false;
 		}
 		
 	}
@@ -172,6 +186,29 @@ public class LootEgg implements Listener{
 			
 		}
 		
+	}
+	
+	@EventHandler
+	public void onDispenserThrow(BlockDispenseEvent e){
+		
+		ItemStack item = e.getItem();
+		
+		if(item.hasItemMeta()){
+			p.sendMessage("Item from Dispenser has Meta");
+			if(item.getItemMeta().hasLore()){
+				p.sendMessage("Item has lore");
+				if(item.getItemMeta().getLore().contains(ChatColor.MAGIC + "lootEgg")){
+					p.sendMessage("Item is a loot egg");
+					isEgg = returnItem(item);
+					fromDispenser = true;
+				}
+			}
+		}
+		
+	}
+	
+	public ItemStack returnItem(ItemStack stack){
+		return stack;
 	}
 	
 }
