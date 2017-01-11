@@ -20,53 +20,45 @@ public class LayEggEvent implements Listener{
 		Item item = e.getEntity();
 		ItemStack stack = item.getItemStack();
 		Material mat = stack.getType();
-		int nChick = 0;
 		boolean change = false;
 		
 		if(mat == Material.EGG){
 
 			List<Entity> nearbyEnt = new ArrayList<Entity>();
 			
-			nearbyEnt.addAll(item.getNearbyEntities(10.0, 10.0, 10.0));
-			
-			for(int i = 0; i < nearbyEnt.size(); i++){
-				
-				if(nearbyEnt.get(i) instanceof Chicken){
-					nChick++;
-					if(nChick > 1){
-						break;
-					}
-				}
-				
-			}
-			
-			if(nChick == 1){
-				change = true;
-			}else{
-				change = false;
-			}
+			change = checkNearbyEntities(nearbyEnt, item, 10.0);
 			
 			if(change){
-				nearbyEnt.clear();
-				nearbyEnt.addAll(item.getNearbyEntities(0.001, 0.001, 0.001));
-				nChick = 0;
-				for(int i = 0; i < nearbyEnt.size(); i++){
-					
-					if(nearbyEnt.get(i) instanceof Chicken){
-						nChick++;
-						if(nChick > 1){
-							break;
-						}
-					}
-					
-				}
 				
-				if(nChick == 1){
+				if(change){
 					stack.setType(Material.DIAMOND_AXE);
 				}
 				
 			}
 			
+		}
+		
+	}
+	
+	public boolean checkNearbyEntities(List<Entity> entities, Item item, double radius){
+		entities.clear();
+		entities.addAll(item.getNearbyEntities(radius, radius, radius));
+		int nChick = 0;
+		for(int i = 0; i < entities.size(); i++){
+			
+			if(entities.get(i) instanceof Chicken){
+				nChick++;
+				if(nChick > 1){
+					break;
+				}
+			}
+			
+		}
+		
+		if(nChick == 1){
+			return true;
+		}else{
+			return false;
 		}
 		
 	}
