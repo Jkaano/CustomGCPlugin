@@ -9,10 +9,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class LayEggEvent implements Listener{
+	
+	private boolean fromDispenser = false;
 	
 	@EventHandler
 	public void onLayEgg(ItemSpawnEvent e){
@@ -22,7 +25,7 @@ public class LayEggEvent implements Listener{
 		Material mat = stack.getType();
 		boolean change = false;
 		
-		if(mat == Material.EGG){
+		if(mat == Material.EGG && !fromDispenser){
 
 			List<Entity> nearbyEnt = new ArrayList<Entity>();
 			
@@ -37,6 +40,24 @@ public class LayEggEvent implements Listener{
 				
 			}
 			
+		}
+		
+		if(fromDispenser){
+			fromDispenser = false;
+		}
+		
+	}
+	
+	@EventHandler
+	public void checkIfDispensed(BlockDispenseEvent e){
+		
+		ItemStack item = e.getItem();
+		Material mat = item.getType();
+		
+		if(mat == Material.EGG){
+			fromDispenser = true;
+		}else{
+			fromDispenser = false;
 		}
 		
 	}
