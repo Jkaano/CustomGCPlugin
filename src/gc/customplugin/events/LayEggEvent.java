@@ -2,6 +2,7 @@ package gc.customplugin.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Chicken;
@@ -13,9 +14,12 @@ import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
+import gc.customplugin.Items.LootEgg;
+
 public class LayEggEvent implements Listener{
 	
 	private boolean fromDispenser = false;
+	LootEgg lootEgg = new LootEgg();
 	
 	@EventHandler
 	public void onLayEgg(ItemSpawnEvent e){
@@ -24,6 +28,7 @@ public class LayEggEvent implements Listener{
 		ItemStack stack = item.getItemStack();
 		Material mat = stack.getType();
 		boolean change = false;
+		int randNum;
 		
 		if(mat == Material.EGG && !fromDispenser){
 
@@ -35,7 +40,10 @@ public class LayEggEvent implements Listener{
 				change = checkNearbyEntities(nearbyEnt, item, 0.001);
 				
 				if(change){
-					stack.setType(Material.DIAMOND_AXE);
+					randNum = ThreadLocalRandom.current().nextInt(1, 100+1);
+					if(randNum == 1){
+						item.setItemStack(lootEgg.getLootEgg());						
+					}
 				}
 				
 			}
