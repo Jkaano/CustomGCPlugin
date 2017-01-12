@@ -12,6 +12,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -26,6 +27,7 @@ public class LootEgg implements Listener{
 	private Random rand = new Random();
 	private int randNum;
 	private List<ItemStack> droppable = new ArrayList<ItemStack>();
+	private boolean fromDisp = false;
 	
 	public LootEgg(){
 		
@@ -127,7 +129,7 @@ public class LootEgg implements Listener{
 	}
 	
 	@EventHandler
-	public void onRightClick(PlayerInteractEvent e){
+	public void onRightClick(PlayerInteractEvent e){ //Sets the player when they right click
 		
 		Player player = e.getPlayer();
 		setPlayer(player);
@@ -136,14 +138,16 @@ public class LootEgg implements Listener{
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void onEggLaunch(ProjectileLaunchEvent e){
-		
-		Entity egg = e.getEntity();
-		Player player = getThrower();
-		ItemStack item = player.getItemInHand(); 
-		ItemMeta meta;
-		List<String> lor;
-		
+	public void onEggLaunch(ProjectileLaunchEvent e){ //Checks if player throws loot egg then changes projectile to loot egg
+
+		if(!fromDisp){	
+			
+			Entity egg = e.getEntity();
+			Player player = getThrower();
+			ItemStack item = player.getItemInHand();
+			ItemMeta meta;
+			List<String> lor;
+			
 		if(item.hasItemMeta()){
 			meta = item.getItemMeta();
 			if(meta.hasLore()){
@@ -154,12 +158,17 @@ public class LootEgg implements Listener{
 				}
 			}
 		}
+		}else{
+			fromDisp = false;
+		}
+			
+
 		
 	}
 
 	
 	@EventHandler
-	public void onEggThrown(PlayerEggThrowEvent e){
+	public void onEggThrown(PlayerEggThrowEvent e){ //Detects where the Loot Egg breaks
 		
 		Entity egg = e.getEgg();
 		
@@ -170,6 +179,22 @@ public class LootEgg implements Listener{
 			
 			dropItem(loc);
 			
+		}
+		
+	}
+	
+	@EventHandler
+	public void onDispenserThrow(BlockDispenseEvent e){ //Cancels throw if egg is Loot Egg from dispenser
+		
+		ItemStack item = e.getItem();
+		fromDisp = true; //prevents launched eggs from glowing
+		
+		if(item.hasItemMeta()){
+			if(item.getItemMeta().hasLore()){
+				if(item.getItemMeta().getLore().contains(ChatColor.MAGIC + "lootEgg")){
+					e.setCancelled(true);
+				}
+			}
 		}
 		
 	}
