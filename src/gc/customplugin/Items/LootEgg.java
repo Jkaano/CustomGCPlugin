@@ -27,8 +27,7 @@ public class LootEgg implements Listener{
 	private Random rand = new Random();
 	private int randNum;
 	private List<ItemStack> droppable = new ArrayList<ItemStack>();
-	private ItemStack isEgg; //For if egg is launched from dispenser
-	private boolean fromDispenser = false;
+	private boolean fromDisp = false;
 	
 	public LootEgg(){
 		
@@ -130,7 +129,7 @@ public class LootEgg implements Listener{
 	}
 	
 	@EventHandler
-	public void onRightClick(PlayerInteractEvent e){
+	public void onRightClick(PlayerInteractEvent e){ //Sets the player when they right click
 		
 		Player player = e.getPlayer();
 		setPlayer(player);
@@ -139,21 +138,16 @@ public class LootEgg implements Listener{
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void onEggLaunch(ProjectileLaunchEvent e){
-		
-		Entity egg = e.getEntity();
-		Player player;
-		ItemStack item;
-		ItemMeta meta;
-		List<String> lor;
-		
-		if(!fromDispenser){
-			player = getThrower();
-			item = player.getItemInHand();
-		}else{
-			item = isEgg;
-		}
-		
+	public void onEggLaunch(ProjectileLaunchEvent e){ //Checks if player throws loot egg then changes projectile to loot egg
+
+		if(!fromDisp){	
+			
+			Entity egg = e.getEntity();
+			Player player = getThrower();
+			ItemStack item = player.getItemInHand();
+			ItemMeta meta;
+			List<String> lor;
+			
 		if(item.hasItemMeta()){
 			meta = item.getItemMeta();
 			if(meta.hasLore()){
@@ -164,16 +158,17 @@ public class LootEgg implements Listener{
 				}
 			}
 		}
-		
-		if(fromDispenser){
-			fromDispenser = false;
+		}else{
+			fromDisp = false;
 		}
+			
+
 		
 	}
 
 	
 	@EventHandler
-	public void onEggThrown(PlayerEggThrowEvent e){
+	public void onEggThrown(PlayerEggThrowEvent e){ //Detects where the Loot Egg breaks
 		
 		Entity egg = e.getEgg();
 		
@@ -189,26 +184,19 @@ public class LootEgg implements Listener{
 	}
 	
 	@EventHandler
-	public void onDispenserThrow(BlockDispenseEvent e){
+	public void onDispenserThrow(BlockDispenseEvent e){ //Cancels throw if egg is Loot Egg from dispenser
 		
 		ItemStack item = e.getItem();
+		fromDisp = true; //prevents launched eggs from glowing
 		
 		if(item.hasItemMeta()){
-			p.sendMessage("Item from Dispenser has Meta");
 			if(item.getItemMeta().hasLore()){
-				p.sendMessage("Item has lore");
 				if(item.getItemMeta().getLore().contains(ChatColor.MAGIC + "lootEgg")){
-					p.sendMessage("Item is a loot egg");
-					isEgg = returnItem(item);
-					fromDispenser = true;
+					e.setCancelled(true);
 				}
 			}
 		}
 		
-	}
-	
-	public ItemStack returnItem(ItemStack stack){
-		return stack;
 	}
 	
 }
